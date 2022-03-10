@@ -2,18 +2,21 @@
 
 bool done = false;
 int length=0;
+char alignment;
 string longestString = "";
-string boxifiedText = "";
-string topLeft, topRight, bottomLeft, bottomRight, vertical , horizontal="";
+string boxifiedText="";
+string topLeft, topRight, bottomLeft, bottomRight, vertical , horizontal;
 List<string> yourText = new List<string>();
 
-GetData();
-FindLongest();
 BorderSelect();
+GetAlignment();
+GetText();
+FindLongest();
 
-void GetData()
+
+void GetText()
 {
-    Console.WriteLine("Type in the text you want me to repeat");
+    Console.WriteLine("Type in the text you want me to boxify");
     Console.WriteLine("Type \"end\" to end");
 
     while (!done)
@@ -119,7 +122,16 @@ void BorderSelect()
 	return;
 }
 
-string Boxify()
+char GetAlignment()
+{
+	Console.WriteLine("Choose how you want the text aligned");
+	Console.WriteLine("[L]eft, [R]ight, or [C]enter");
+	alignment = Console.ReadLine().FirstOrDefault();
+	return alignment;
+}
+
+
+string Boxify(List<string> yourText, int length, char alignment )
 {
     return boxifiedText;
 }
@@ -130,4 +142,4 @@ for(int i = 0; i < yourText.Count; i++)
 {
     Console.WriteLine(yourText[i]);
 }
-Console.WriteLine(length);
+Console.WriteLine(alignment);
