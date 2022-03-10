@@ -140,19 +140,22 @@ string Boxify(List<string> yourText, int length, char alignment)
 		case 'L':
 			foreach (string s in yourText)
 			{
-				int padLength = border.Length - s.Length -2;
+				int padLength = border.Length - s.Length -1;
 				string padding = new string(' ', padLength);
 				boxifiedText = boxifiedText + "\n" + vertical + " " + s + padding + vertical;
 			}
 			break;
 		case 'C':
+			length = 40;
+			border = new string(horizontal, length + 4);
+			boxifiedText = topLeft + border + topRight;
 			foreach (string s in yourText)
 			{
 				int padLength = (length - s.Length + 4) / 2;
 				string padding = new string(' ', padLength);
 
 				//This is the line of code that almost broke me.
-				padLength = s.Length % 2 == 0 ? padLength + 1 : padLength;
+				padLength = s.Length % 2 == 0 ? padLength: padLength + 1;
 				string paddingRight = new string(' ', padLength);
 
 				boxifiedText = boxifiedText + "\n" + vertical + padding + s + paddingRight + vertical;
