@@ -146,7 +146,7 @@ string Boxify(List<string> yourText, int length, char alignment)
 			}
 			break;
 		case 'C':
-			length = 40;
+			length = length % 2 == 0 ? length : length + 1;
 			border = new string(horizontal, length + 4);
 			boxifiedText = topLeft + border + topRight;
 			foreach (string s in yourText)
