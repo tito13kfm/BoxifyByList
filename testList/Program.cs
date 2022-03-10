@@ -132,8 +132,9 @@ char GetAlignment()
 
 string Boxify(List<string> yourText, int length, char alignment)
 {
-	string border = new string(horizontal, length + 5);
+	string border = new string(horizontal, length + 4);
 	boxifiedText = topLeft + border + topRight;
+
 	switch (alignment)
 	{
 		case 'L':
@@ -141,19 +142,39 @@ string Boxify(List<string> yourText, int length, char alignment)
 			{
 				int padLength = border.Length - s.Length -2;
 				string padding = new string(' ', padLength);
-				boxifiedText = boxifiedText + "\n" + vertical + "  " + s + padding + vertical;
+				boxifiedText = boxifiedText + "\n" + vertical + " " + s + padding + vertical;
 			}
 			break;
 		case 'C':
+			foreach (string s in yourText)
+			{
+				int padLength = (length - s.Length + 4) / 2;
+				string padding = new string(' ', padLength);
+
+				//This is the line of code that almost broke me.
+				padLength = s.Length % 2 == 0 ? padLength + 1 : padLength;
+				string paddingRight = new string(' ', padLength);
+
+				boxifiedText = boxifiedText + "\n" + vertical + padding + s + paddingRight + vertical;
+			}
+
 			break;
 		case 'R':
+			foreach (string s in yourText)
+			{
+				int padLength = length - s.Length + 2;
+				string padding = new string(' ', padLength);
+				boxifiedText = boxifiedText + "\n" + vertical + padding + s + "  " + vertical;
+			}
 			break;
 		default:
 			break;
 	}
+
 	boxifiedText = boxifiedText + "\n" + bottomLeft + border + bottomRight;
 	return boxifiedText;
 }
 
 Console.Clear();
 Console.WriteLine(Boxify(yourText, length, alignment));
+Console.ReadKey();
