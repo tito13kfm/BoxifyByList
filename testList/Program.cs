@@ -5,14 +5,14 @@ int length=0;
 char alignment;
 string longestString = "";
 string boxifiedText="";
-string topLeft, topRight, bottomLeft, bottomRight, vertical , horizontal;
+string topLeft="", topRight="", bottomLeft="", bottomRight="", vertical="";
+char horizontal= '▄';
 List<string> yourText = new List<string>();
 
 BorderSelect();
 GetAlignment();
 GetText();
 FindLongest();
-
 
 void GetText()
 {
@@ -58,64 +58,64 @@ void BorderSelect()
 			topRight = "╗";
 			bottomLeft = "╚";
 			bottomRight = "╝";
-			horizontal = "═";
+			horizontal = '═';
 			vertical = "║";
-			break;
+			return;
 
 		case 2: // Border Style -2-
 			topLeft = "┌";
 			topRight = "┐";
 			bottomLeft = "└";
 			bottomRight = "┘";
-			horizontal = "─";
+			horizontal = '─';
 			vertical = "│";
-			break;
+			return;
 
 		case 3: // Border Style -3-
 			topLeft = "█";
 			topRight = "█";
 			bottomLeft = "█";
 			bottomRight = "█";
-			horizontal = "■";
+			horizontal = '■';
 			vertical = "█";
-			break;
+			return;
 
 		case 4: // Border Style -4-
 			topLeft = "░";
 			topRight = "░";
 			bottomLeft = "░";
 			bottomRight = "░";
-			horizontal = "░";
+			horizontal = '░';
 			vertical = "░";
-			break;
+			return;
 
 		case 5: // Border Style -5-
 			topLeft = "▓";
 			topRight = "▓";
 			bottomLeft = "▓";
 			bottomRight = "▓";
-			horizontal = "▓";
+			horizontal = '▓';
 			vertical = "▓";
-			break;
+			return;
 
 		case 6: // Border Style -6-
 			topLeft = "♥";
 			topRight = "♥";
 			bottomLeft = "♥";
 			bottomRight = "♥";
-			horizontal = "♥";
+			horizontal = '♥';
 			vertical = "♥";
-			break;
+			return;
 
 		case 7: // Border Style -7-
 			topLeft = "♦";
 			topRight = "♦";
 			bottomLeft = "♦";
 			bottomRight = "♦";
-			horizontal = "♦";
+			horizontal = '♦';
 			vertical = "♦";
-			break;
-		
+			return;
+
 		default:
 			break;
 	}
@@ -126,20 +126,34 @@ char GetAlignment()
 {
 	Console.WriteLine("Choose how you want the text aligned");
 	Console.WriteLine("[L]eft, [R]ight, or [C]enter");
-	alignment = Console.ReadLine().FirstOrDefault();
+	alignment = Console.ReadLine().ToUpper().FirstOrDefault();
 	return alignment;
 }
 
-
-string Boxify(List<string> yourText, int length, char alignment )
+string Boxify(List<string> yourText, int length, char alignment)
 {
-    return boxifiedText;
+	string border = new string(horizontal, length + 5);
+	boxifiedText = topLeft + border + topRight;
+	switch (alignment)
+	{
+		case 'L':
+			foreach (string s in yourText)
+			{
+				int padLength = border.Length - s.Length -2;
+				string padding = new string(' ', padLength);
+				boxifiedText = boxifiedText + "\n" + vertical + "  " + s + padding + vertical;
+			}
+			break;
+		case 'C':
+			break;
+		case 'R':
+			break;
+		default:
+			break;
+	}
+	boxifiedText = boxifiedText + "\n" + bottomLeft + border + bottomRight;
+	return boxifiedText;
 }
 
 Console.Clear();
-
-for(int i = 0; i < yourText.Count; i++)
-{
-    Console.WriteLine(yourText[i]);
-}
-Console.WriteLine(alignment);
+Console.WriteLine(Boxify(yourText, length, alignment));
