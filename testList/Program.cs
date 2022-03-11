@@ -7,9 +7,7 @@ char alignment;
 string longestString = "";
 string boxifiedText="";
 string topLeft="", topRight="", bottomLeft="", bottomRight="", vertical="";
-
-//Needed to assign a value to horizontal beforehand otherwise everything breaks
-char horizontal= '▄';
+char horizontal= ' ';
 
 // Setup my list yourText
 List<string> yourText = new List<string>();
@@ -23,19 +21,19 @@ FindLongest();
 void GetText()
 {
     Console.WriteLine("Type in the text you want me to boxify");
-    Console.WriteLine("Type \"end\" to end");
+    Console.WriteLine("Type END to end");
 
-    //Continue to get additional lines and store them to List yourText until user enters "end"
+    //Continue to get additional lines and store them to List yourText until user enters "END"
 	while (!done)
     {
         string input = Console.ReadLine();
-        if (input != "end")
+        if (input.ToUpper() != "END")
         {
             yourText.Add(input);
         }
         else
         {
-            break;
+            done = true;
         }
     }
 }
@@ -128,6 +126,13 @@ void BorderSelect()
 			return;
 
 		default:
+			topLeft = "♦";
+			topRight = "♦";
+			bottomLeft = "♦";
+			bottomRight = "♦";
+			horizontal = '♠';
+			vertical = "♣";
+			return;
 			break;
 	}
 	return;
