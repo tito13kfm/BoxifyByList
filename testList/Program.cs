@@ -3,7 +3,7 @@
 //variable declartion
 bool done = false;
 int length=0;
-char alignment;
+char alignment = ' ';
 string longestString = "";
 string boxifiedText="";
 string topLeft="", topRight="", bottomLeft="", bottomRight="", vertical="";
@@ -141,9 +141,12 @@ void BorderSelect()
 char GetAlignment()
 {
 	//almost certainly overkill to put this in a function... but why not
-	Console.WriteLine("Choose how you want the text aligned");
-	Console.WriteLine("[L]eft, [R]ight, or [C]enter");
-	alignment = Console.ReadLine().ToUpper().FirstOrDefault();
+	while ((alignment != 'L') && (alignment != 'C') && (alignment !='R'))
+	{
+		Console.WriteLine("Choose how you want the text aligned");
+		Console.WriteLine("[L]eft, [R]ight, or [C]enter");
+		alignment = Console.ReadLine().ToUpper().FirstOrDefault();
+	}
 	return alignment;
 }
 
