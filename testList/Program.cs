@@ -17,6 +17,8 @@ BorderSelect();
 GetAlignment();
 GetText();
 FindLongest();
+GetWidth();
+
 
 void GetText()
 {
@@ -150,6 +152,30 @@ char GetAlignment()
 	return alignment;
 }
 
+void GetWidth()
+{
+	bool valid = false;
+	while (!valid)
+	{
+		Console.WriteLine("Choose box width");
+		Console.WriteLine("40, 60, 80, or Dynamic");
+		string width = Console.ReadLine().ToUpper();
+        switch (width)
+        {
+			case "40":
+				valid = true; length = 40; break;
+			case "60":
+				valid = true; length = 60; break;
+			case "80":
+				valid = true; length = 80; break;
+			default:
+				break;
+        }
+		return;
+    }
+}
+
+
 string Boxify(List<string> yourText, int length, char alignment)
 {
 	//setup top border
@@ -164,6 +190,12 @@ string Boxify(List<string> yourText, int length, char alignment)
 			foreach (string s in yourText)
 			{
 				int padLength = border.Length - s.Length -1;
+				//I don't like it... but you gotta do what you gotta do.
+				//Program crashes if padLength <0.. so we fudge it
+				while (padLength < 0)
+                {
+					padLength++;
+                }
 				string padding = new string(' ', padLength);
 				boxifiedText = boxifiedText + "\n" + vertical + " " + s + padding + vertical;
 			}
@@ -182,6 +214,10 @@ string Boxify(List<string> yourText, int length, char alignment)
 			foreach (string s in yourText)
 			{
 				int padLength = (length - s.Length + 4) / 2;
+				while (padLength < 0)
+				{
+					padLength++;
+				}
 				string padding = new string(' ', padLength);
 
 				//This is the line of code that almost broke me.
@@ -198,6 +234,10 @@ string Boxify(List<string> yourText, int length, char alignment)
 			foreach (string s in yourText)
 			{
 				int padLength = length - s.Length + 2;
+				while (padLength < 0)
+				{
+					padLength++;
+				}
 				string padding = new string(' ', padLength);
 				boxifiedText = boxifiedText + "\n" + vertical + padding + s + "  " + vertical;
 			}
